@@ -9,7 +9,7 @@
 ■ 画像の差し替え箇所一覧(すべて images/ フォルダ)
   images/favicon.svg          … ファビコン(32×32 以上。pngの場合は <link rel="icon"> も変更)
   images/ogp.jpg              … OGP画像(SNSシェア用 / 推奨 1200×630px)
-  images/hero.jpg             … ファーストビュー メインビジュアル(推奨 1600×1000px 横長)
+  images/hero.jpg             … ファーストビュー メインビジュアル(推奨 1600×900px 横長)
   images/bansou_01.jpg        … 伴装有限会社 カード写真(推奨 1200×800px)
   images/gallery_01.jpg 〜 images/gallery_06.jpg
                               … 商品ギャラリー(正方形推奨 1000×1000px / 6〜9枚。9枚にする場合は
@@ -264,7 +264,7 @@
 
     .hero-visual {
       position: relative;
-      aspect-ratio: 4 / 3;
+      aspect-ratio: 16 / 9;
       overflow: hidden;
       border-radius: var(--radius);
       background: var(--line);
@@ -521,7 +521,7 @@
           </div>
 
           <div class="hero-visual fade">
-            <img src="images/hero.jpg" alt="縁線 ENSEN メインビジュアル:蒲郡駅コンコースに並ぶ手仕事の品々" width="1600" height="1200" fetchpriority="high">
+            <img src="images/hero.jpg" alt="縁線 ENSEN vol.1 in ガマモノ メインビジュアル" width="1600" height="900" fetchpriority="high">
           </div>
         </div>
       </div>
