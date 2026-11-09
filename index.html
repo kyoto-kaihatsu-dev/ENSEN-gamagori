@@ -32,14 +32,14 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>縁線 ENSEN | 2026.11.19(木)–21(土) 16:00–20:00 蒲郡駅コンコース</title>
-  <meta name="description" content="縁線(ENSEN)— 線路でつながる町と人の縁をテーマにしたポップアップイベント。2026年11月19日(木)・20日(金)・21日(土) 16:00〜20:00、蒲郡駅コンコースにて開催。出店:伴装有限会社。">
+  <title>縁線 ENSEN | 2026.11.19(木)–21(土) 蒲郡駅コンコース</title>
+  <meta name="description" content="体験型産地マーケット「縁線(ENSEN)」。線路でつながる町と人の縁をテーマに、2026年11月19日(木)・20日(金)16:00〜20:00、21日(土)10:00〜15:00、JR蒲郡駅構内でテスト開催。出店:伴装有限会社。">
   <meta name="theme-color" content="#f6f3ec">
 
   <!-- OGP -->
   <meta property="og:type" content="website">
   <meta property="og:title" content="縁線 ENSEN | 11.19(木)–21(土) 蒲郡駅コンコース">
-  <meta property="og:description" content="線路でつながる町と人の縁。2026年11月19日〜21日 16:00〜20:00、蒲郡駅コンコースで開催するポップアップイベント。">
+  <meta property="og:description" content="線路でつながる町と人の縁。触れて、選んで、予約できる体験型産地マーケット。2026年11月19日〜21日、JR蒲郡駅構内で開催。">
   <meta property="og:image" content="https://kyoto-kaihatsu-dev.github.io/ENSEN-gamagori/images/ogp.jpg">
   <meta property="og:url" content="https://kyoto-kaihatsu-dev.github.io/ENSEN-gamagori/">
   <meta property="og:locale" content="ja_JP">
@@ -52,7 +52,7 @@
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Noto+Serif+JP:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&family=Noto+Serif+JP:wght@400;500;600&family=Train+One&display=swap" rel="stylesheet">
 
   <style>
     /* ------------------------------------------------------------
@@ -68,6 +68,7 @@
       --accent-ink: #ffffff;  /* アクセント上の文字 */
       --font-serif: "Noto Serif JP", "Hiragino Mincho ProN", "Yu Mincho", serif;
       --font-sans: "Noto Sans JP", "Hiragino Kaku Gothic ProN", "Yu Gothic", sans-serif;
+      --font-display: "Train One", "Noto Sans JP", "Hiragino Kaku Gothic ProN", sans-serif;
       --w: 1080px;
       --radius: 4px;
     }
@@ -118,14 +119,14 @@
     .sec-head { margin-bottom: 36px; }
     .sec-en {
       display: block;
-      font-family: var(--font-sans);
-      font-size: 11px;
+      font-family: var(--font-display);
+      font-size: 13px;
       letter-spacing: 0.3em;
       text-transform: uppercase;
       color: var(--accent);
       margin-bottom: 6px;
     }
-    .sec-title { font-size: 26px; }
+    .sec-title { font-family: var(--font-display); font-weight: 900; font-size: 30px; letter-spacing: 0.06em; }
     .sec-title::after {
       content: "";
       display: block;
@@ -148,7 +149,8 @@
       height: 56px;
     }
     .brand {
-      font-family: var(--font-serif);
+      font-family: var(--font-display);
+      font-weight: 900;
       font-size: 18px;
       letter-spacing: 0.2em;
       color: var(--ink);
@@ -156,7 +158,7 @@
       display: flex; align-items: baseline; gap: 8px;
     }
     .brand small {
-      font-family: var(--font-sans);
+      font-family: var(--font-display);
       font-size: 10px; letter-spacing: 0.25em; color: var(--accent);
     }
     .nav ul { display: flex; gap: 22px; }
@@ -192,8 +194,8 @@
       margin-bottom: 36px;
     }
     .hero-logo .kanji {
-      font-family: var(--font-serif);
-      font-weight: 500;
+      font-family: var(--font-display);
+      font-weight: 900;
       font-size: clamp(64px, 18vw, 104px);
       letter-spacing: 0.18em;
       line-height: 1;
@@ -201,9 +203,9 @@
     }
     .hero-logo .roman {
       margin-top: 14px;
-      font-family: var(--font-sans);
-      font-size: 13px;
-      letter-spacing: 0.6em;
+      font-family: var(--font-display);
+      font-size: 21px;
+      letter-spacing: 0.38em;
       color: var(--accent);
       padding-left: 0.1em;
       display: flex; align-items: center; gap: 14px;
@@ -230,7 +232,7 @@
     }
     .hero-info dd { margin: 0; }
     .date-row {
-      font-family: var(--font-serif);
+      font-family: var(--font-display);
       display: flex; flex-wrap: wrap; align-items: baseline; gap: 2px 12px;
     }
     .date-row .year { font-size: 16px; letter-spacing: 0.12em; color: var(--ink-soft); }
@@ -245,9 +247,16 @@
     }
     .date-row .sep { font-size: 20px; color: var(--line); }
     .time-row {
-      font-family: var(--font-serif);
+      font-family: var(--font-display);
       font-size: clamp(26px, 7vw, 34px);
       letter-spacing: 0.06em; line-height: 1.2;
+    }
+    .time-row .sub {
+      display: block;
+      font-family: var(--font-sans);
+      font-size: 14px; font-weight: 500;
+      letter-spacing: 0.06em; color: var(--ink-soft);
+      margin-top: 8px;
     }
     .venue-row {
       font-family: var(--font-serif);
@@ -292,6 +301,31 @@
       display: block; width: 100%; max-width: 520px; height: 24px;
       margin: 40px auto 0; color: var(--accent); opacity: 0.6;
     }
+    .hero-kind {
+      font-family: var(--font-display);
+      font-size: 13px; letter-spacing: 0.35em;
+      color: var(--accent); margin: 0 0 20px;
+    }
+    .feature-lead { color: var(--ink-soft); max-width: 760px; margin-bottom: 36px; }
+    .feature-grid { display: grid; gap: 20px; }
+    @media (min-width: 900px) { .feature-grid { grid-template-columns: repeat(3, 1fr); } }
+    .feature-card {
+      background: var(--bg-soft);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 28px 24px;
+    }
+    .feature-word {
+      font-family: var(--font-display); font-weight: 900;
+      font-size: 30px; letter-spacing: 0.1em; line-height: 1.2;
+      color: var(--accent); margin-bottom: 6px;
+    }
+    .feature-en {
+      font-family: var(--font-display);
+      font-size: 11px; letter-spacing: 0.3em; text-transform: uppercase;
+      color: var(--ink-soft); margin-bottom: 14px;
+    }
+    .feature-card p { font-size: 15px; margin: 0; }
 
     /* ------------------------------------------------------------
        出店者紹介
@@ -310,7 +344,7 @@
     .vendor-card figure img { width: 100%; height: 100%; object-fit: cover; }
     .vendor-body { padding: 26px 24px 30px; display: flex; flex-direction: column; gap: 14px; flex: 1; }
     .vendor-no { font-size: 11px; letter-spacing: 0.3em; color: var(--accent); }
-    .vendor-name { font-size: 22px; letter-spacing: 0.08em; }
+    .vendor-name { font-family: var(--font-display); font-weight: 900; font-size: 22px; letter-spacing: 0.08em; }
     .vendor-kind { font-size: 13px; color: var(--ink-soft); margin-top: 2px; }
     .vendor-desc { font-size: 15px; margin: 0; }
     .vendor-items {
@@ -395,8 +429,8 @@
     .site-footer .wrap { position: relative; }
     .footer-grid { display: grid; gap: 32px; }
     @media (min-width: 780px) { .footer-grid { grid-template-columns: 1fr 1fr 1fr; } }
-    .footer-brand .kanji { font-family: var(--font-serif); font-size: 36px; letter-spacing: 0.2em; line-height: 1; }
-    .footer-brand .roman { font-size: 11px; letter-spacing: 0.5em; opacity: 0.8; margin-top: 10px; }
+    .footer-brand .kanji { font-family: var(--font-display); font-weight: 900; font-size: 36px; letter-spacing: 0.2em; line-height: 1; }
+    .footer-brand .roman { font-family: var(--font-display); font-size: 13px; letter-spacing: 0.5em; opacity: 0.8; margin-top: 10px; }
     .footer-brand .dates { font-family: var(--font-serif); font-size: 14px; letter-spacing: 0.1em; margin-top: 18px; }
     .footer-h { font-family: var(--font-sans); font-size: 11px; letter-spacing: 0.3em; opacity: 0.75; margin-bottom: 12px; }
     .footer-list li { font-size: 14px; margin-bottom: 6px; }
@@ -445,6 +479,7 @@
       <nav class="nav" aria-label="ページ内ナビゲーション">
         <ul>
           <li><a href="#concept">コンセプト</a></li>
+          <li><a href="#experience">体験・販売</a></li>
           <li><a href="#vendors">出店者</a></li>
           <li><a href="#gallery">ギャラリー</a></li>
           <li><a href="#overview">開催概要</a></li>
@@ -485,6 +520,7 @@
       <div class="wrap">
         <div class="hero-grid">
           <div class="hero-text">
+            <p class="hero-kind">体験型産地マーケット</p>
             <h1 class="hero-logo" id="hero-title">
               <span class="kanji">縁線</span>
               <span class="roman" aria-label="エンセン">ENSEN</span>
@@ -507,7 +543,7 @@
               </div>
               <div>
                 <dt>時間</dt>
-                <dd class="time-row"><time datetime="16:00">16:00</time> – <time datetime="20:00">20:00</time></dd>
+                <dd class="time-row"><time datetime="16:00">16:00</time> – <time datetime="20:00">20:00</time><span class="sub">19日(木)・20日(金)／21日(土)は <time datetime="10:00">10:00</time> – <time datetime="15:00">15:00</time></span></dd>
               </div>
               <div>
                 <dt>会場</dt>
@@ -542,6 +578,15 @@
             線路でつながる町と町、そして人と人の縁。
             駅という日々の通り道で、ふと足を止めて手に取ってもらえるものを、沿線のつくり手が持ち寄ります。
           </p>
+          <p class="concept-body">
+            「縁線」という名前には、人と人、地域と地域、作り手と使い手のご縁をつなぎたいという思いを込めています。蒲郡の繊維産業にとどまらず、地域全体の活性化を目指す取り組みです。
+          </p>
+          <p class="concept-body">
+            主催の伴装有限会社は、愛知県蒲郡市で約50年続く寝具工場です。蒲郡の繊維産業をはじめとする地域のものづくりを盛り上げ、蒲郡市全体の活性化に貢献したい。人口減少など地域が抱える課題を見据え、企業や住民がつながる「地域のハブ」を育てることが、この取り組みの出発点です。蒲郡未来創造塾で考えてきた地域の未来や企業の役割についての学びも、今回の挑戦につながっています。
+          </p>
+          <p class="concept-body">
+            初回は伴装1社でスタートし、今後は蒲郡のものづくり企業や地域の関係者との連携を広げていく考えです。将来的には年4回程度の開催を構想しています。
+          </p>
         </div>
         <svg class="rail-divider fade" viewBox="0 0 520 24" aria-hidden="true" focusable="false">
           <line x1="0" y1="12" x2="520" y2="12" stroke="currentColor" stroke-width="0.8" />
@@ -556,7 +601,37 @@
       </div>
     </section>
 
-    <!-- 3. 出店者紹介 -->
+    <!-- 3. 体験・販売の特徴 -->
+    <section class="section experience" id="experience" aria-labelledby="experience-title">
+      <div class="wrap">
+        <div class="sec-head fade">
+          <span class="sec-en">Experience</span>
+          <h2 class="sec-title" id="experience-title">触れる・選ぶ・予約する</h2>
+        </div>
+        <p class="feature-lead fade">
+          新しい販売の形を試す、体験型のマーケットです。冬物・通年用の敷きパッド、ベッドパッド、ガーゼケット、綿毛布、ハンカチなどを紹介・販売します。実際に商品に触れ、素材の質感や使い心地を確かめていただけます。
+        </p>
+        <div class="feature-grid">
+          <article class="feature-card fade">
+            <div class="feature-word">触れる</div>
+            <div class="feature-en">Touch</div>
+            <p>会場に並ぶ商品は、どれも実際に手に取って確かめられます。素材の質感や、寝具の使い心地を、その場で体験してください。</p>
+          </article>
+          <article class="feature-card fade">
+            <div class="feature-word">選ぶ</div>
+            <div class="feature-en">Choose</div>
+            <p>在庫のある商品は、その場で購入できます。作り手の話を聞きながら、暮らしに合う一品を選べます。</p>
+          </article>
+          <article class="feature-card fade">
+            <div class="feature-word">予約する</div>
+            <div class="feature-en">Reserve</div>
+            <p>冬物の敷きパッドなど一部商品については、開催期間中に予約を受け付け、受注後に製造する販売方式を試みます。メーカーだからこそできる、作り手と使い手の距離を縮める取り組みです。</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. 出店者紹介 -->
     <section class="section vendors" id="vendors" aria-labelledby="vendors-title">
       <div class="wrap">
         <div class="sec-head fade">
@@ -574,17 +649,20 @@
               <div>
                 <span class="vendor-no">01</span>
                 <h3 class="vendor-name">伴装有限会社</h3>
-                <p class="vendor-kind">寝具メーカー</p>
+                <p class="vendor-kind">寝具工場(愛知県蒲郡市・約50年)</p>
               </div>
               <p class="vendor-desc">
-                蒲郡のものづくり企業として、日本製の敷きパッドをつくっています。自社商品を入口に、地域の企業や人をつなぐ活動にも取り組んでいます。
+                愛知県蒲郡市で寝具製造を手がける、約50年続く寝具工場です。蒲郡の繊維産業をはじめとする地域のものづくりを盛り上げ、企業や住民がつながる「地域のハブ」を育てることを目指しています。今回は、自社商品を入口に「触れて選べる販売と予約受注」に挑戦します。
               </p>
               <dl class="vendor-items">
                 <dt>出品物</dt>
                 <dd>
                   <ul>
-                    <li>日本製敷きパッド</li>
-                    <li>フレンチウール敷きパッド</li>
+                    <li>敷きパッド(冬物・通年用)</li>
+                    <li>ベッドパッド</li>
+                    <li>ガーゼケット</li>
+                    <li>綿毛布</li>
+                    <li>ハンカチ</li>
                   </ul>
                 </dd>
               </dl>
@@ -597,7 +675,7 @@
       </div>
     </section>
 
-    <!-- 4. 商品ギャラリー -->
+    <!-- 5. 商品ギャラリー -->
     <section class="section gallery" id="gallery" aria-labelledby="gallery-title">
       <div class="wrap">
         <div class="sec-head fade">
@@ -635,7 +713,7 @@
       </div>
     </section>
 
-    <!-- 5. 開催概要 -->
+    <!-- 6. 開催概要 -->
     <section class="section overview" id="overview" aria-labelledby="overview-title">
       <div class="wrap">
         <div class="sec-head fade">
@@ -649,7 +727,7 @@
             <tbody>
               <tr>
                 <th scope="row">イベント名</th>
-                <td><strong>縁線(ENSEN)</strong></td>
+                <td><strong>縁線 ENSEN</strong><span class="sub">体験型産地マーケット(テスト開催)</span></td>
               </tr>
               <tr>
                 <th scope="row">日程</th>
@@ -660,7 +738,7 @@
               </tr>
               <tr>
                 <th scope="row">時間</th>
-                <td><strong>16:00 – 20:00</strong></td>
+                <td><strong>11月19日(木)・20日(金) 16:00 – 20:00</strong><span class="sub">11月21日(土) 10:00 – 15:00</span></td>
               </tr>
               <tr>
                 <th scope="row">会場</th>
@@ -691,6 +769,10 @@
                 <td>3,000円〜15,000円<span class="sub">お支払い:現金・キャッシュレス決済</span></td>
               </tr>
               <tr>
+                <th scope="row">販売</th>
+                <td>一部即売 / 一部予約受注<span class="sub">冬物の敷きパッドなど一部商品は、期間中に予約を受け付け、受注後に製造します</span></td>
+              </tr>
+              <tr>
                 <th scope="row">主催</th>
                 <td>伴装有限会社</td>
               </tr>
@@ -715,7 +797,7 @@
     </section>
   </main>
 
-  <!-- 6. フッター -->
+  <!-- 7. フッター -->
   <footer class="site-footer">
     <svg class="footer-lines" viewBox="0 0 1200 300" preserveAspectRatio="none" aria-hidden="true" focusable="false">
       <g fill="none" stroke="#e8e4da" stroke-width="0.8">
@@ -728,7 +810,7 @@
         <div class="footer-brand">
           <div class="kanji">縁線</div>
           <div class="roman">ENSEN</div>
-          <div class="dates">2026.11.19(木) – 11.21(土)<br>16:00 – 20:00 蒲郡駅コンコース</div>
+          <div class="dates">2026.11.19(木)・20(金) 16:00 – 20:00<br>11.21(土) 10:00 – 15:00 蒲郡駅コンコース</div>
         </div>
 
         <div>
