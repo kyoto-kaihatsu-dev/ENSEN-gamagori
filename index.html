@@ -1,0 +1,830 @@
+<!DOCTYPE html>
+<html lang="ja">
+<!--
+============================================================
+  縁線 ENSEN — ポップアップイベント告知 LP
+  (HTML / CSS / JavaScript 1ファイル構成)
+============================================================
+
+■ 画像の差し替え箇所一覧(すべて images/ フォルダ)
+  images/favicon.svg          … ファビコン(32×32 以上。pngの場合は <link rel="icon"> も変更)
+  images/ogp.jpg              … OGP画像(SNSシェア用 / 推奨 1200×630px)
+  images/hero.jpg             … ファーストビュー メインビジュアル(推奨 1600×1000px 横長)
+  images/bansou_01.jpg        … 伴装有限会社 カード写真(推奨 1200×800px)
+  images/nakamori_01.jpg      … 有限会社ナカモリ カード写真(推奨 1200×800px)
+  images/gallery_01.jpg 〜 images/gallery_06.jpg
+                              … 商品ギャラリー(正方形推奨 1000×1000px / 6〜9枚。9枚にする場合は
+                                 <figure> ブロックを複製して追加)
+  ※ 画像が未配置の場合は images/placeholder.svg が自動表示されます(JSで代替)。
+     本番公開前に全ての画像を実写真に差し替えてください。
+
+■ 【要記入】箇所一覧(本文中を「要記入」で検索)
+  1. 会場の具体的な場所(改札内/外)    … #hero, #overview の2箇所
+  2. 伴装有限会社:事業内容・紹介文・出品物 … #vendors
+  3. 有限会社ナカモリ:紹介文・出品物      … #vendors
+  4. 価格帯・決済方法(記載しない場合は該当 <tr> を削除) … #overview
+  5. 問い合わせ先・SNSリンク(URL と表示名) … <footer>
+  6. 主催表記                               … <footer>
+  7. OGP の og:url(公開URL)                 … <head>
+  8. アクセント色(初期値:藍色 #243f66)。変更は :root の --accent を編集
+
+■ ギャラリー alt / キャプションも実際の商品に合わせて書き換えてください。
+============================================================
+-->
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>縁線 ENSEN | 2026.11.19(木)–21(土) 16:00–20:00 蒲郡駅コンコース</title>
+  <meta name="description" content="縁線(ENSEN)— 線路でつながる町と人の縁をテーマにしたポップアップイベント。2026年11月19日(木)・20日(金)・21日(土) 16:00〜20:00、蒲郡駅コンコースにて開催。出店:伴装有限会社、有限会社ナカモリ。">
+  <meta name="theme-color" content="#f6f3ec">
+
+  <!-- OGP -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="縁線 ENSEN | 11.19(木)–21(土) 蒲郡駅コンコース">
+  <meta property="og:description" content="線路でつながる町と人の縁。2026年11月19日〜21日 16:00〜20:00、蒲郡駅コンコースで開催するポップアップイベント。">
+  <meta property="og:image" content="images/ogp.jpg"><!-- 公開時は絶対URL(https://…/images/ogp.jpg)に変更推奨 -->
+  <meta property="og:url" content="https://example.com/"><!-- 【要記入】公開URL -->
+  <meta property="og:locale" content="ja_JP">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <!-- favicon -->
+  <link rel="icon" href="images/favicon.svg" type="image/svg+xml">
+  <!-- <link rel="apple-touch-icon" href="images/apple-touch-icon.png"> -->
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Noto+Serif+JP:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    /* ------------------------------------------------------------
+       変数
+       ------------------------------------------------------------ */
+    :root {
+      --bg: #f6f3ec;          /* 生成り */
+      --bg-soft: #fbf9f4;     /* オフホワイト */
+      --ink: #2b2a27;         /* 本文(コントラスト比 対 --bg : 約12:1) */
+      --ink-soft: #5a5750;    /* 補助テキスト(約6.3:1) */
+      --line: #d9d3c6;        /* 罫線 */
+      --accent: #243f66;      /* アクセント:藍色(約9.5:1) 【要記入】で変更可 */
+      --accent-ink: #ffffff;  /* アクセント上の文字 */
+      --font-serif: "Noto Serif JP", "Hiragino Mincho ProN", "Yu Mincho", serif;
+      --font-sans: "Noto Sans JP", "Hiragino Kaku Gothic ProN", "Yu Gothic", sans-serif;
+      --w: 1080px;
+      --radius: 4px;
+    }
+
+    /* ------------------------------------------------------------
+       リセット・基本
+       ------------------------------------------------------------ */
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+    @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--ink);
+      font-family: var(--font-sans);
+      font-size: 16px;
+      line-height: 1.9;
+      letter-spacing: 0.02em;
+      font-feature-settings: "palt";
+    }
+    h1, h2, h3, h4 {
+      font-family: var(--font-serif);
+      font-weight: 500;
+      line-height: 1.4;
+      margin: 0;
+    }
+    p { margin: 0 0 1em; }
+    a { color: var(--accent); text-underline-offset: 0.2em; }
+    a:hover { opacity: 0.8; }
+    img { display: block; max-width: 100%; height: auto; }
+    ul { margin: 0; padding: 0; list-style: none; }
+    table { border-collapse: collapse; width: 100%; }
+
+    :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+
+    .skip-link {
+      position: absolute; left: -999px; top: 8px;
+      background: var(--accent); color: var(--accent-ink);
+      padding: 8px 12px; z-index: 100;
+    }
+    .skip-link:focus { left: 8px; }
+
+    .wrap { width: min(100% - 40px, var(--w)); margin-inline: auto; }
+    .section { padding: 72px 0; }
+    .section + .section { border-top: 1px solid var(--line); }
+
+    .sec-head { margin-bottom: 36px; }
+    .sec-en {
+      display: block;
+      font-family: var(--font-sans);
+      font-size: 11px;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 6px;
+    }
+    .sec-title { font-size: 26px; }
+    .sec-title::after {
+      content: "";
+      display: block;
+      width: 40px; height: 1px;
+      background: var(--accent);
+      margin-top: 16px;
+    }
+
+    /* ------------------------------------------------------------
+       ヘッダー
+       ------------------------------------------------------------ */
+    .site-header {
+      position: sticky; top: 0; z-index: 50;
+      background: rgba(246, 243, 236, 0.92);
+      backdrop-filter: blur(6px);
+      border-bottom: 1px solid var(--line);
+    }
+    .site-header .wrap {
+      display: flex; align-items: center; justify-content: space-between;
+      height: 56px;
+    }
+    .brand {
+      font-family: var(--font-serif);
+      font-size: 18px;
+      letter-spacing: 0.2em;
+      color: var(--ink);
+      text-decoration: none;
+      display: flex; align-items: baseline; gap: 8px;
+    }
+    .brand small {
+      font-family: var(--font-sans);
+      font-size: 10px; letter-spacing: 0.25em; color: var(--accent);
+    }
+    .nav ul { display: flex; gap: 22px; }
+    .nav a {
+      font-size: 13px; letter-spacing: 0.1em;
+      color: var(--ink); text-decoration: none;
+    }
+    .nav a:hover { color: var(--accent); opacity: 1; }
+    @media (max-width: 640px) { .nav { display: none; } }
+
+    /* ------------------------------------------------------------
+       ファーストビュー
+       ------------------------------------------------------------ */
+    .hero {
+      position: relative;
+      overflow: hidden;
+      padding: 56px 0 64px;
+      background: var(--bg-soft);
+    }
+    .hero-lines {
+      position: absolute; inset: 0; width: 100%; height: 100%;
+      pointer-events: none; opacity: 0.55;
+    }
+    .hero .wrap { position: relative; }
+
+    .hero-grid { display: grid; gap: 40px; align-items: center; }
+    @media (min-width: 900px) {
+      .hero-grid { grid-template-columns: 1fr 1fr; gap: 56px; }
+    }
+
+    .hero-logo {
+      display: flex; flex-direction: column; align-items: flex-start;
+      margin-bottom: 36px;
+    }
+    .hero-logo .kanji {
+      font-family: var(--font-serif);
+      font-weight: 500;
+      font-size: clamp(64px, 18vw, 104px);
+      letter-spacing: 0.18em;
+      line-height: 1;
+      color: var(--ink);
+    }
+    .hero-logo .roman {
+      margin-top: 14px;
+      font-family: var(--font-sans);
+      font-size: 13px;
+      letter-spacing: 0.6em;
+      color: var(--accent);
+      padding-left: 0.1em;
+      display: flex; align-items: center; gap: 14px;
+    }
+    .hero-logo .roman::before {
+      content: ""; width: 48px; height: 1px; background: var(--accent);
+    }
+    .hero-tag {
+      font-family: var(--font-serif);
+      font-size: 15px; color: var(--ink-soft);
+      letter-spacing: 0.1em;
+      margin: 0 0 32px;
+    }
+
+    .hero-info {
+      border-top: 1px solid var(--ink);
+      border-bottom: 1px solid var(--ink);
+      padding: 22px 0;
+      display: grid; gap: 16px;
+    }
+    .hero-info dt {
+      font-size: 11px; letter-spacing: 0.3em; color: var(--accent);
+      margin-bottom: 2px;
+    }
+    .hero-info dd { margin: 0; }
+    .date-row {
+      font-family: var(--font-serif);
+      display: flex; flex-wrap: wrap; align-items: baseline; gap: 2px 12px;
+    }
+    .date-row .year { font-size: 16px; letter-spacing: 0.12em; color: var(--ink-soft); }
+    .date-row .days { display: flex; gap: 10px; align-items: baseline; flex-wrap: wrap; }
+    .date-row .day {
+      font-size: clamp(30px, 8vw, 40px);
+      letter-spacing: 0.04em; line-height: 1.1;
+    }
+    .date-row .day small {
+      font-size: 0.42em; letter-spacing: 0.05em; color: var(--ink-soft);
+      margin-left: 2px;
+    }
+    .date-row .sep { font-size: 20px; color: var(--line); }
+    .time-row {
+      font-family: var(--font-serif);
+      font-size: clamp(26px, 7vw, 34px);
+      letter-spacing: 0.06em; line-height: 1.2;
+    }
+    .venue-row {
+      font-family: var(--font-serif);
+      font-size: clamp(20px, 5.5vw, 26px);
+      letter-spacing: 0.08em; line-height: 1.3;
+    }
+    .venue-row .note {
+      display: block;
+      font-family: var(--font-sans);
+      font-size: 13px; letter-spacing: 0.05em; color: var(--ink-soft);
+      margin-top: 4px;
+    }
+    .hero-note { font-size: 13px; color: var(--ink-soft); margin: 18px 0 0; }
+
+    .hero-visual {
+      position: relative;
+      aspect-ratio: 4 / 3;
+      overflow: hidden;
+      border-radius: var(--radius);
+      background: var(--line);
+    }
+    .hero-visual img { width: 100%; height: 100%; object-fit: cover; }
+    .hero-visual::after {
+      content: "";
+      position: absolute; left: -8px; bottom: 22px;
+      width: 56px; height: 1px; background: var(--bg);
+      opacity: 0.9;
+    }
+
+    /* ------------------------------------------------------------
+       コンセプト
+       ------------------------------------------------------------ */
+    .concept { background: var(--bg); }
+    .concept-inner { max-width: 680px; }
+    .concept-lead {
+      font-family: var(--font-serif);
+      font-size: 20px; line-height: 2.1; letter-spacing: 0.06em;
+      margin-bottom: 20px;
+    }
+    .concept-body { color: var(--ink-soft); }
+    .rail-divider {
+      display: block; width: 100%; max-width: 520px; height: 24px;
+      margin: 40px auto 0; color: var(--accent); opacity: 0.6;
+    }
+
+    /* ------------------------------------------------------------
+       出店者紹介
+       ------------------------------------------------------------ */
+    .vendor-grid { display: grid; gap: 32px; }
+    @media (min-width: 780px) { .vendor-grid { grid-template-columns: 1fr 1fr; } }
+
+    .vendor-card {
+      background: var(--bg-soft);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      overflow: hidden;
+      display: flex; flex-direction: column;
+    }
+    .vendor-card figure { margin: 0; aspect-ratio: 3 / 2; background: var(--line); overflow: hidden; }
+    .vendor-card figure img { width: 100%; height: 100%; object-fit: cover; }
+    .vendor-body { padding: 26px 24px 30px; display: flex; flex-direction: column; gap: 14px; flex: 1; }
+    .vendor-no { font-size: 11px; letter-spacing: 0.3em; color: var(--accent); }
+    .vendor-name { font-size: 22px; letter-spacing: 0.08em; }
+    .vendor-kind { font-size: 13px; color: var(--ink-soft); margin-top: 2px; }
+    .vendor-desc { font-size: 15px; margin: 0; }
+    .vendor-items {
+      margin-top: auto;
+      border-top: 1px dashed var(--line);
+      padding-top: 14px;
+    }
+    .vendor-items dt {
+      font-size: 11px; letter-spacing: 0.25em; color: var(--accent); margin-bottom: 6px;
+    }
+    .vendor-items dd { margin: 0; font-size: 14px; }
+    .vendor-items li { display: inline-block; }
+    .vendor-items li + li::before { content: "／"; color: var(--line); margin: 0 4px; }
+    .vendor-link { font-size: 13px; letter-spacing: 0.05em; }
+
+    /* ------------------------------------------------------------
+       ギャラリー
+       ------------------------------------------------------------ */
+    .gallery { background: var(--bg-soft); }
+    .gallery-grid {
+      display: grid; gap: 10px;
+      grid-template-columns: repeat(2, 1fr);
+    }
+    @media (min-width: 640px) { .gallery-grid { grid-template-columns: repeat(3, 1fr); gap: 14px; } }
+    .gallery-grid figure {
+      margin: 0; position: relative;
+      aspect-ratio: 1 / 1; overflow: hidden;
+      border-radius: var(--radius); background: var(--line);
+    }
+    .gallery-grid img { width: 100%; height: 100%; object-fit: cover; }
+    .gallery-grid figcaption {
+      position: absolute; left: 0; right: 0; bottom: 0;
+      padding: 18px 12px 10px;
+      font-size: 12px; letter-spacing: 0.05em; color: #fff;
+      background: linear-gradient(to top, rgba(43,42,39,0.65), rgba(43,42,39,0));
+    }
+    .gallery-note { font-size: 13px; color: var(--ink-soft); margin-top: 16px; }
+
+    /* ------------------------------------------------------------
+       開催概要
+       ------------------------------------------------------------ */
+    .overview-grid { display: grid; gap: 36px; }
+    @media (min-width: 900px) { .overview-grid { grid-template-columns: 1.1fr 1fr; align-items: start; } }
+
+    .info-table th, .info-table td {
+      text-align: left; vertical-align: top;
+      padding: 16px 4px;
+      border-bottom: 1px solid var(--line);
+      font-size: 15px;
+    }
+    .info-table tr:first-child th, .info-table tr:first-child td { border-top: 1px solid var(--ink); }
+    .info-table th {
+      width: 7em; font-weight: 500;
+      font-size: 12px; letter-spacing: 0.2em; color: var(--accent);
+      padding-top: 20px;
+    }
+    .info-table td strong { font-family: var(--font-serif); font-weight: 500; font-size: 17px; }
+    .info-table td .sub { display: block; font-size: 13px; color: var(--ink-soft); }
+    .info-table ul li { position: relative; padding-left: 1em; }
+    .info-table ul li::before {
+      content: ""; position: absolute; left: 0; top: 0.9em;
+      width: 6px; height: 1px; background: var(--accent);
+    }
+
+    .map-box {
+      border: 1px solid var(--line); border-radius: var(--radius);
+      overflow: hidden; background: var(--line);
+    }
+    .map-box iframe { display: block; width: 100%; height: 320px; border: 0; }
+    .map-link { font-size: 13px; margin-top: 10px; }
+
+    /* ------------------------------------------------------------
+       フッター
+       ------------------------------------------------------------ */
+    .site-footer {
+      background: var(--ink); color: #e8e4da;
+      padding: 56px 0 32px;
+      position: relative; overflow: hidden;
+    }
+    .site-footer a { color: #e8e4da; }
+    .footer-lines { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; opacity: 0.25; }
+    .site-footer .wrap { position: relative; }
+    .footer-grid { display: grid; gap: 32px; }
+    @media (min-width: 780px) { .footer-grid { grid-template-columns: 1fr 1fr 1fr; } }
+    .footer-brand .kanji { font-family: var(--font-serif); font-size: 36px; letter-spacing: 0.2em; line-height: 1; }
+    .footer-brand .roman { font-size: 11px; letter-spacing: 0.5em; opacity: 0.8; margin-top: 10px; }
+    .footer-brand .dates { font-family: var(--font-serif); font-size: 14px; letter-spacing: 0.1em; margin-top: 18px; }
+    .footer-h { font-family: var(--font-sans); font-size: 11px; letter-spacing: 0.3em; opacity: 0.75; margin-bottom: 12px; }
+    .footer-list li { font-size: 14px; margin-bottom: 6px; }
+    .sns-list { display: flex; flex-direction: column; gap: 8px; }
+    .sns-list a {
+      display: inline-flex; align-items: center; gap: 10px;
+      font-size: 14px; letter-spacing: 0.05em; text-decoration: none;
+      border-bottom: 1px solid rgba(232,228,218,0.4); padding-bottom: 2px;
+      width: fit-content;
+    }
+    .sns-list svg { width: 18px; height: 18px; fill: currentColor; }
+    .copyright {
+      margin-top: 44px; padding-top: 20px;
+      border-top: 1px solid rgba(232,228,218,0.2);
+      font-size: 12px; letter-spacing: 0.05em; opacity: 0.75;
+      display: flex; flex-wrap: wrap; gap: 6px 20px; justify-content: space-between;
+    }
+
+    /* ------------------------------------------------------------
+       フェードイン(控えめ) / reduced-motion
+       ------------------------------------------------------------ */
+    .fade { opacity: 0; transform: translateY(12px); transition: opacity .7s ease, transform .7s ease; }
+    .fade.is-visible { opacity: 1; transform: none; }
+    .no-js .fade { opacity: 1; transform: none; }
+    @media (prefers-reduced-motion: reduce) {
+      .fade { opacity: 1; transform: none; transition: none; }
+    }
+
+    /* ------------------------------------------------------------
+       印刷
+       ------------------------------------------------------------ */
+    @media print {
+      .site-header, .map-box, .hero-lines, .footer-lines { display: none; }
+      .section { padding: 24px 0; }
+    }
+  </style>
+</head>
+
+<body class="no-js">
+  <a class="skip-link" href="#main">本文へ移動</a>
+
+  <!-- ヘッダー -->
+  <header class="site-header">
+    <div class="wrap">
+      <a class="brand" href="#top" aria-label="縁線 ENSEN トップへ">縁線 <small>ENSEN</small></a>
+      <nav class="nav" aria-label="ページ内ナビゲーション">
+        <ul>
+          <li><a href="#concept">コンセプト</a></li>
+          <li><a href="#vendors">出店者</a></li>
+          <li><a href="#gallery">ギャラリー</a></li>
+          <li><a href="#overview">開催概要</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+
+    <!-- 1. ファーストビュー -->
+    <section class="hero" id="top" aria-labelledby="hero-title">
+      <!-- 線路モチーフ(細い線) -->
+      <svg class="hero-lines" viewBox="0 0 1200 700" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+        <g fill="none" stroke="#243f66" stroke-width="0.8" stroke-opacity="0.35">
+          <path d="M-20 560 C 300 540, 700 620, 1220 520" />
+          <path d="M-20 590 C 300 570, 700 650, 1220 550" />
+        </g>
+        <g stroke="#243f66" stroke-width="0.6" stroke-opacity="0.22">
+          <!-- 枕木:等間隔の短い線 -->
+          <line x1="60"  y1="552" x2="56"  y2="582" />
+          <line x1="180" y1="546" x2="176" y2="576" />
+          <line x1="300" y1="544" x2="296" y2="574" />
+          <line x1="420" y1="550" x2="416" y2="580" />
+          <line x1="540" y1="560" x2="536" y2="590" />
+          <line x1="660" y1="572" x2="656" y2="602" />
+          <line x1="780" y1="580" x2="776" y2="610" />
+          <line x1="900" y1="580" x2="896" y2="610" />
+          <line x1="1020" y1="568" x2="1016" y2="598" />
+          <line x1="1140" y1="548" x2="1136" y2="578" />
+        </g>
+        <g fill="#243f66" fill-opacity="0.35">
+          <circle cx="300" cy="546" r="2.2" />
+          <circle cx="780" cy="581" r="2.2" />
+        </g>
+      </svg>
+
+      <div class="wrap">
+        <div class="hero-grid">
+          <div class="hero-text">
+            <h1 class="hero-logo" id="hero-title">
+              <span class="kanji">縁線</span>
+              <span class="roman" aria-label="エンセン">ENSEN</span>
+            </h1>
+            <p class="hero-tag">線路でつながる、町と町、人と人の縁。</p>
+
+            <dl class="hero-info">
+              <div>
+                <dt>日程</dt>
+                <dd class="date-row">
+                  <span class="year">2026年11月</span>
+                  <span class="days">
+                    <span class="day"><time datetime="2026-11-19">19</time><small>木</small></span>
+                    <span class="sep" aria-hidden="true">・</span>
+                    <span class="day"><time datetime="2026-11-20">20</time><small>金</small></span>
+                    <span class="sep" aria-hidden="true">・</span>
+                    <span class="day"><time datetime="2026-11-21">21</time><small>土</small></span>
+                  </span>
+                </dd>
+              </div>
+              <div>
+                <dt>時間</dt>
+                <dd class="time-row"><time datetime="16:00">16:00</time> – <time datetime="20:00">20:00</time></dd>
+              </div>
+              <div>
+                <dt>会場</dt>
+                <dd class="venue-row">
+                  蒲郡駅 コンコース
+                  <span class="note">【要記入:改札内/外、具体的な場所】</span>
+                </dd>
+              </div>
+            </dl>
+            <p class="hero-note">入場無料・予約不要</p><!-- 事実と異なる場合はこの行を削除してください -->
+          </div>
+
+          <div class="hero-visual fade">
+            <img src="images/hero.jpg" alt="縁線 ENSEN メインビジュアル:蒲郡駅コンコースに並ぶ手仕事の品々" width="1600" height="1200" fetchpriority="high">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. コンセプト -->
+    <section class="section concept" id="concept" aria-labelledby="concept-title">
+      <div class="wrap">
+        <div class="sec-head fade">
+          <span class="sec-en">Concept</span>
+          <h2 class="sec-title" id="concept-title">「縁線」という名前</h2>
+        </div>
+        <div class="concept-inner fade">
+          <p class="concept-lead">
+            「縁線(えんせん)」は、「沿線」と「縁」をかけた名前です。
+          </p>
+          <p class="concept-body">
+            線路でつながる町と町、そして人と人の縁。
+            駅という日々の通り道で、ふと足を止めて手に取ってもらえるものを、沿線のつくり手が持ち寄ります。
+          </p>
+        </div>
+        <svg class="rail-divider fade" viewBox="0 0 520 24" aria-hidden="true" focusable="false">
+          <line x1="0" y1="12" x2="520" y2="12" stroke="currentColor" stroke-width="0.8" />
+          <line x1="0" y1="16" x2="520" y2="16" stroke="currentColor" stroke-width="0.8" opacity="0.5" />
+          <g stroke="currentColor" stroke-width="0.8" opacity="0.6">
+            <line x1="40" y1="8" x2="40" y2="20" /><line x1="120" y1="8" x2="120" y2="20" />
+            <line x1="200" y1="8" x2="200" y2="20" /><line x1="280" y1="8" x2="280" y2="20" />
+            <line x1="360" y1="8" x2="360" y2="20" /><line x1="440" y1="8" x2="440" y2="20" />
+          </g>
+          <circle cx="260" cy="12" r="2.5" fill="currentColor" />
+        </svg>
+      </div>
+    </section>
+
+    <!-- 3. 出店者紹介 -->
+    <section class="section vendors" id="vendors" aria-labelledby="vendors-title">
+      <div class="wrap">
+        <div class="sec-head fade">
+          <span class="sec-en">Exhibitors</span>
+          <h2 class="sec-title" id="vendors-title">出店者</h2>
+        </div>
+
+        <div class="vendor-grid">
+          <!-- 出店者 1 -->
+          <article class="vendor-card fade">
+            <figure>
+              <img src="images/bansou_01.jpg" alt="伴装有限会社の出品物" width="1200" height="800" loading="lazy">
+            </figure>
+            <div class="vendor-body">
+              <div>
+                <span class="vendor-no">01</span>
+                <h3 class="vendor-name">伴装有限会社</h3>
+                <p class="vendor-kind">【要記入:事業内容】</p>
+              </div>
+              <p class="vendor-desc">
+                【要記入:紹介文 100字程度】
+              </p>
+              <dl class="vendor-items">
+                <dt>出品物</dt>
+                <dd>
+                  <ul>
+                    <li>【要記入】</li>
+                    <li>【要記入】</li>
+                  </ul>
+                </dd>
+              </dl>
+              <!-- Webサイト等がある場合に表示。不要なら削除 -->
+              <!-- <a class="vendor-link" href="#" target="_blank" rel="noopener">Webサイトを見る</a> -->
+            </div>
+          </article>
+
+          <!-- 出店者 2 -->
+          <article class="vendor-card fade">
+            <figure>
+              <img src="images/nakamori_01.jpg" alt="有限会社ナカモリのガーゼ製品" width="1200" height="800" loading="lazy">
+            </figure>
+            <div class="vendor-body">
+              <div>
+                <span class="vendor-no">02</span>
+                <h3 class="vendor-name">有限会社ナカモリ</h3>
+                <p class="vendor-kind">ガーゼ製品 【要記入:補足】</p>
+              </div>
+              <p class="vendor-desc">
+                【要記入:紹介文 100字程度】
+              </p>
+              <dl class="vendor-items">
+                <dt>出品物</dt>
+                <dd>
+                  <ul>
+                    <li>ガーゼ製品 【要記入:品目】</li>
+                    <li>【要記入】</li>
+                  </ul>
+                </dd>
+              </dl>
+              <!-- <a class="vendor-link" href="https://blanked-gauze.com/" target="_blank" rel="noopener">Webサイトを見る</a> -->
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. 商品ギャラリー -->
+    <section class="section gallery" id="gallery" aria-labelledby="gallery-title">
+      <div class="wrap">
+        <div class="sec-head fade">
+          <span class="sec-en">Gallery</span>
+          <h2 class="sec-title" id="gallery-title">会場に並ぶもの</h2>
+        </div>
+        <div class="gallery-grid">
+          <figure class="fade">
+            <img src="images/gallery_01.jpg" alt="【要記入:商品名】" width="1000" height="1000" loading="lazy">
+            <figcaption>【要記入:キャプション】</figcaption>
+          </figure>
+          <figure class="fade">
+            <img src="images/gallery_02.jpg" alt="【要記入:商品名】" width="1000" height="1000" loading="lazy">
+            <figcaption>【要記入:キャプション】</figcaption>
+          </figure>
+          <figure class="fade">
+            <img src="images/gallery_03.jpg" alt="【要記入:商品名】" width="1000" height="1000" loading="lazy">
+            <figcaption>【要記入:キャプション】</figcaption>
+          </figure>
+          <figure class="fade">
+            <img src="images/gallery_04.jpg" alt="【要記入:商品名】" width="1000" height="1000" loading="lazy">
+            <figcaption>【要記入:キャプション】</figcaption>
+          </figure>
+          <figure class="fade">
+            <img src="images/gallery_05.jpg" alt="【要記入:商品名】" width="1000" height="1000" loading="lazy">
+            <figcaption>【要記入:キャプション】</figcaption>
+          </figure>
+          <figure class="fade">
+            <img src="images/gallery_06.jpg" alt="【要記入:商品名】" width="1000" height="1000" loading="lazy">
+            <figcaption>【要記入:キャプション】</figcaption>
+          </figure>
+          <!-- 7〜9枚目を追加する場合は上の <figure> を複製(images/gallery_07.jpg …) -->
+        </div>
+        <p class="gallery-note">※ 写真は一例です。会場での品揃えは変更になる場合があります。</p>
+      </div>
+    </section>
+
+    <!-- 5. 開催概要 -->
+    <section class="section overview" id="overview" aria-labelledby="overview-title">
+      <div class="wrap">
+        <div class="sec-head fade">
+          <span class="sec-en">Information</span>
+          <h2 class="sec-title" id="overview-title">開催概要</h2>
+        </div>
+
+        <div class="overview-grid">
+          <table class="info-table fade">
+            <caption class="visually-hidden" style="position:absolute;left:-9999px;">縁線 ENSEN 開催概要</caption>
+            <tbody>
+              <tr>
+                <th scope="row">イベント名</th>
+                <td><strong>縁線(ENSEN)</strong></td>
+              </tr>
+              <tr>
+                <th scope="row">日程</th>
+                <td>
+                  <strong>2026年11月19日(木)・20日(金)・21日(土)</strong>
+                  <span class="sub">3日間</span>
+                </td>
+              </tr>
+              <tr>
+                <th scope="row">時間</th>
+                <td><strong>16:00 – 20:00</strong></td>
+              </tr>
+              <tr>
+                <th scope="row">会場</th>
+                <td>
+                  <strong>蒲郡駅 コンコース</strong>
+                  <span class="sub">【要記入:改札内/外、具体的な場所(例:南口改札を出て右手)】</span>
+                </td>
+              </tr>
+              <tr>
+                <th scope="row">アクセス</th>
+                <td>
+                  <ul>
+                    <li>蒲郡駅 構内(駅直結)</li>
+                    <li>【要記入:駐車場・駐輪場の案内があれば】</li>
+                  </ul>
+                </td>
+              </tr>
+              <tr>
+                <th scope="row">出店</th>
+                <td>
+                  <ul>
+                    <li>伴装有限会社</li>
+                    <li>有限会社ナカモリ</li>
+                  </ul>
+                </td>
+              </tr>
+              <!-- 価格帯・決済方法:記載しない場合はこの <tr> を削除 -->
+              <tr>
+                <th scope="row">価格帯・<br>お支払い</th>
+                <td>【要記入:価格帯 / 現金・キャッシュレス等】</td>
+              </tr>
+              <tr>
+                <th scope="row">主催</th>
+                <td>【要記入:主催者名】</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div class="fade">
+            <div class="map-box">
+              <iframe
+                title="蒲郡駅の地図(Googleマップ)"
+                src="https://www.google.com/maps?q=%E8%92%B2%E9%83%A1%E9%A7%85&hl=ja&z=16&output=embed"
+                loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade"
+                allowfullscreen></iframe>
+            </div>
+            <p class="map-link">
+              <a href="https://www.google.com/maps/search/?api=1&query=%E8%92%B2%E9%83%A1%E9%A7%85" target="_blank" rel="noopener">Googleマップで蒲郡駅を開く</a>
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- 6. フッター -->
+  <footer class="site-footer">
+    <svg class="footer-lines" viewBox="0 0 1200 300" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+      <g fill="none" stroke="#e8e4da" stroke-width="0.8">
+        <path d="M-20 200 C 300 180, 700 260, 1220 160" />
+        <path d="M-20 222 C 300 202, 700 282, 1220 182" />
+      </g>
+    </svg>
+    <div class="wrap">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <div class="kanji">縁線</div>
+          <div class="roman">ENSEN</div>
+          <div class="dates">2026.11.19(木) – 11.21(土)<br>16:00 – 20:00 蒲郡駅コンコース</div>
+        </div>
+
+        <div>
+          <h2 class="footer-h">お問い合わせ</h2>
+          <ul class="footer-list">
+            <li>【要記入:担当者名・会社名】</li>
+            <li><a href="mailto:info@example.com">【要記入:メールアドレス】</a></li>
+            <li><a href="tel:0000000000">【要記入:電話番号】</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h2 class="footer-h">SNS</h2>
+          <div class="sns-list">
+            <!-- 【要記入】href を実際のURLに。使わないものは削除 -->
+            <a href="#" target="_blank" rel="noopener" aria-label="Instagram(新しいタブで開く)">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.2c3.2 0 3.6 0 4.8.1 1.2.1 1.8.2 2.2.4.6.2 1 .5 1.4.9.4.4.7.8.9 1.4.2.4.4 1 .4 2.2.1 1.3.1 1.6.1 4.8s0 3.6-.1 4.8c-.1 1.2-.2 1.8-.4 2.2-.2.6-.5 1-.9 1.4-.4.4-.8.7-1.4.9-.4.2-1 .4-2.2.4-1.3.1-1.6.1-4.8.1s-3.6 0-4.8-.1c-1.2-.1-1.8-.2-2.2-.4-.6-.2-1-.5-1.4-.9-.4-.4-.7-.8-.9-1.4-.2-.4-.4-1-.4-2.2C2.2 15.6 2.2 15.2 2.2 12s0-3.6.1-4.8c.1-1.2.2-1.8.4-2.2.2-.6.5-1 .9-1.4.4-.4.8-.7 1.4-.9.4-.2 1-.4 2.2-.4C8.4 2.2 8.8 2.2 12 2.2M12 0C8.7 0 8.3 0 7.1.1 5.8.1 4.9.3 4.1.6c-.8.3-1.5.7-2.2 1.4C1.3 2.6.9 3.3.6 4.1.3 4.9.1 5.8.1 7.1 0 8.3 0 8.7 0 12s0 3.7.1 4.9c.1 1.3.3 2.2.6 2.9.3.8.7 1.5 1.4 2.2.7.7 1.4 1.1 2.2 1.4.8.3 1.6.5 2.9.6 1.2.1 1.6.1 4.9.1s3.7 0 4.9-.1c1.3-.1 2.2-.3 2.9-.6.8-.3 1.5-.7 2.2-1.4.7-.7 1.1-1.4 1.4-2.2.3-.8.5-1.6.6-2.9.1-1.2.1-1.6.1-4.9s0-3.7-.1-4.9c-.1-1.3-.3-2.2-.6-2.9-.3-.8-.7-1.5-1.4-2.2C21.4 1.3 20.7.9 19.9.6 19.1.3 18.2.1 16.9.1 15.7 0 15.3 0 12 0zm0 5.8a6.2 6.2 0 1 0 0 12.4 6.2 6.2 0 0 0 0-12.4zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.4-11.8a1.4 1.4 0 1 0 0 2.9 1.4 1.4 0 0 0 0-2.9z"/></svg>
+              <span>Instagram 【要記入:アカウント名】</span>
+            </a>
+            <a href="#" target="_blank" rel="noopener" aria-label="Webサイト(新しいタブで開く)">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm6.9 6h-3a15.6 15.6 0 0 0-1.4-3.6A8 8 0 0 1 18.9 8zM12 4c.8 1.2 1.5 2.5 1.9 4h-3.8c.4-1.5 1.1-2.8 1.9-4zM4.3 14a8.2 8.2 0 0 1 0-4h3.4a16.5 16.5 0 0 0 0 4H4.3zm.8 2h3a15.6 15.6 0 0 0 1.4 3.6A8 8 0 0 1 5.1 16zm3-8h-3a8 8 0 0 1 4.4-3.6A15.6 15.6 0 0 0 8.1 8zM12 20c-.8-1.2-1.5-2.5-1.9-4h3.8c-.4 1.5-1.1 2.8-1.9 4zm2.3-6H9.7a14.6 14.6 0 0 1 0-4h4.6a14.6 14.6 0 0 1 0 4zm.2 5.6a15.6 15.6 0 0 0 1.4-3.6h3a8 8 0 0 1-4.4 3.6zm1.8-5.6a16.5 16.5 0 0 0 0-4h3.4a8.2 8.2 0 0 1 0 4h-3.4z"/></svg>
+              <span>Webサイト 【要記入】</span>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="copyright">
+        <span>主催:【要記入:主催者名】</span>
+        <span>&copy; 2026 縁線 ENSEN</span>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    (function () {
+      'use strict';
+      document.body.classList.remove('no-js');
+
+      /* --- 画像未配置時のプレースホルダー代替(本番では全画像差し替え前提) --- */
+      var PLACEHOLDER = 'images/placeholder.svg';
+      document.addEventListener('error', function (e) {
+        var el = e.target;
+        if (el && el.tagName === 'IMG' && el.getAttribute('src') !== PLACEHOLDER) {
+          el.setAttribute('data-missing', el.getAttribute('src'));
+          el.src = PLACEHOLDER;
+        }
+      }, true);
+
+      /* --- 控えめなフェードイン(prefers-reduced-motion 時は無効) --- */
+      var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      var targets = document.querySelectorAll('.fade');
+      if (reduce || !('IntersectionObserver' in window)) {
+        targets.forEach(function (el) { el.classList.add('is-visible'); });
+        return;
+      }
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            io.unobserve(entry.target);
+          }
+        });
+      }, { rootMargin: '0px 0px -8% 0px', threshold: 0.1 });
+      targets.forEach(function (el) { io.observe(el); });
+    })();
+  </script>
+</body>
+</html>

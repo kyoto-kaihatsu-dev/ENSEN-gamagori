@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <rect width="64" height="64" rx="8" fill="#f6f3ec"/>
+  <g fill="none" stroke="#243f66" stroke-width="1.6" stroke-linecap="round">
+    <path d="M8 40 C 20 36, 44 46, 56 38"/>
+    <path d="M8 46 C 20 42, 44 52, 56 44"/>
+    <line x1="18" y1="37" x2="17" y2="45"/>
+    <line x1="32" y1="40" x2="31" y2="48"/>
+    <line x1="46" y1="41" x2="45" y2="49"/>
+  </g>
+  <text x="32" y="28" text-anchor="middle" font-family="Noto Serif JP, serif" font-size="20" fill="#243f66">縁</text>
+</svg>

@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900" width="1200" height="900">
+  <rect width="1200" height="900" fill="#e9e4d8"/>
+  <g fill="none" stroke="#243f66" stroke-width="1.2" stroke-opacity="0.35">
+    <path d="M-20 620 C 300 600, 700 680, 1220 580"/>
+    <path d="M-20 650 C 300 630, 700 710, 1220 610"/>
+  </g>
+  <g stroke="#243f66" stroke-width="1" stroke-opacity="0.25">
+    <line x1="100" y1="610" x2="96" y2="645"/><line x1="260" y1="602" x2="256" y2="637"/>
+    <line x1="420" y1="606" x2="416" y2="641"/><line x1="580" y1="620" x2="576" y2="655"/>
+    <line x1="740" y1="636" x2="736" y2="671"/><line x1="900" y1="640" x2="896" y2="675"/>
+    <line x1="1060" y1="622" x2="1056" y2="657"/>
+  </g>
+  <text x="600" y="420" text-anchor="middle" font-family="Noto Serif JP, serif" font-size="56" fill="#5a5750" letter-spacing="8">写真を差し替え</text>
+  <text x="600" y="480" text-anchor="middle" font-family="Noto Sans JP, sans-serif" font-size="24" fill="#8a867d" letter-spacing="4">images/ フォルダに画像を配置してください</text>
+</svg>
