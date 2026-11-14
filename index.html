@@ -394,6 +394,21 @@
       font-size: 12px; letter-spacing: 0.05em; color: #fff;
       background: linear-gradient(to top, rgba(43,42,39,0.65), rgba(43,42,39,0));
     }
+    .pickup-grid {
+      display: grid; gap: 14px; margin-bottom: 14px;
+      grid-template-columns: 1fr;
+    }
+    @media (min-width: 640px) { .pickup-grid { grid-template-columns: repeat(2, 1fr); } }
+    .pickup-card {
+      margin: 0; background: var(--bg);
+      border: 1px solid var(--line); border-radius: var(--radius);
+      overflow: hidden;
+    }
+    .pickup-card img { width: 100%; height: auto; }
+    .pickup-card figcaption { padding: 12px 14px 14px; font-size: 15px; letter-spacing: 0.05em; }
+    .pickup-card figcaption span {
+      display: block; font-size: 12px; color: var(--ink-soft); margin-top: 2px;
+    }
     .gallery-note { font-size: 13px; color: var(--ink-soft); margin-top: 16px; }
 
     /* ------------------------------------------------------------
@@ -691,6 +706,16 @@
         <div class="sec-head fade">
           <span class="sec-en">Gallery</span>
           <h2 class="sec-title" id="gallery-title">会場に並ぶもの</h2>
+        </div>
+        <div class="pickup-grid">
+          <figure class="pickup-card fade">
+            <img src="images/product_pad_pop.jpg" alt="あったか敷きパッドのご案内。予約受注生産、11月19日より予約販売開始、選べる3色" width="1200" height="1200" loading="lazy">
+            <figcaption>あったか敷きパッド<span>予約受注生産／11月19日より予約販売開始・選べる3色</span></figcaption>
+          </figure>
+          <figure class="pickup-card fade">
+            <img src="images/product_bedpad.jpg" alt="ベッドパッドの商品紹介。体圧分散・防ダニ、帝人フロンティアの技術使用" width="1200" height="1200" loading="lazy">
+            <figcaption>ベッドパッド<span>体圧分散・防ダニ／睡眠環境寝具指導士が企画・開発</span></figcaption>
+          </figure>
         </div>
         <div class="gallery-grid">
           <figure class="fade">
