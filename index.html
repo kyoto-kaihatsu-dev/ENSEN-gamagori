@@ -54,6 +54,18 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&family=Noto+Serif+JP:wght@400;500;600&family=Train+One&display=swap" rel="stylesheet">
 
+  <!-- Adobe Fonts: ゴシックMB101 (見出し用) -->
+  <script>
+    (function(d) {
+      var config = {
+        kitId: 'nui6oat',
+        scriptTimeout: 3000,
+        async: true
+      },
+      h=d.documentElement,t=setTimeout(function(){h.className=h.className.replace(/\bwf-loading\b/g,"")+" wf-inactive";},config.scriptTimeout),tk=d.createElement("script"),f=false,s=d.getElementsByTagName("script")[0],a;h.className+=" wf-loading";tk.src='https://use.typekit.net/'+config.kitId+'.js';tk.async=true;tk.onload=tk.onreadystatechange=function(){a=this.readyState;if(f||a&&a!="complete"&&a!="loaded")return;f=true;clearTimeout(t);try{Typekit.load(config)}catch(e){}};s.parentNode.insertBefore(tk,s)
+    })(document);
+  </script>
+
   <style>
     /* ------------------------------------------------------------
        変数
@@ -69,6 +81,7 @@
       --font-serif: "Noto Serif JP", "Hiragino Mincho ProN", "Yu Mincho", serif;
       --font-sans: "Noto Sans JP", "Hiragino Kaku Gothic ProN", "Yu Gothic", sans-serif;
       --font-display: "Train One", "Noto Sans JP", "Hiragino Kaku Gothic ProN", sans-serif;
+      --font-heading: "a-otf-gothic-mb101-pr6n", "Noto Sans JP", "Hiragino Kaku Gothic ProN", sans-serif;
       --w: 1080px;
       --radius: 4px;
     }
@@ -127,7 +140,7 @@
       color: var(--accent);
       margin-bottom: 6px;
     }
-    .sec-title { font-family: var(--font-display); font-weight: 400; font-size: 28px; letter-spacing: 0.08em; }
+    .sec-title { font-family: var(--font-heading); font-weight: 300; font-size: 28px; letter-spacing: 0.08em; }
     .sec-title::after {
       content: "";
       display: block;
@@ -293,7 +306,7 @@
       margin: 40px auto 0; color: var(--accent); opacity: 0.6;
     }
     .hero-kind {
-      font-family: var(--font-display);
+      font-family: var(--font-heading); font-weight: 300;
       font-size: 13px; letter-spacing: 0.35em;
       color: var(--accent); margin: 0 0 20px;
     }
@@ -307,7 +320,7 @@
       padding: 28px 24px;
     }
     .feature-word {
-      font-family: var(--font-display); font-weight: 400;
+      font-family: var(--font-heading); font-weight: 300;
       font-size: 30px; letter-spacing: 0.1em; line-height: 1.2;
       color: var(--accent); margin-bottom: 6px;
     }
