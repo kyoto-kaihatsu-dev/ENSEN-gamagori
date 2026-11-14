@@ -409,6 +409,30 @@
     .pickup-card figcaption span {
       display: block; font-size: 12px; color: var(--ink-soft); margin-top: 2px;
     }
+    .follow-grid {
+      display: grid; gap: 14px;
+      grid-template-columns: 1fr;
+      max-width: 760px; margin: 0 auto;
+    }
+    @media (min-width: 640px) { .follow-grid { grid-template-columns: repeat(2, 1fr); } }
+    .follow-card {
+      background: var(--bg-soft);
+      border: 1px solid var(--line); border-radius: var(--radius);
+      padding: 26px 24px; text-align: center;
+    }
+    .follow-card h3 {
+      font-family: var(--font-heading); font-weight: 300;
+      font-size: 19px; letter-spacing: 0.08em; margin: 0 0 8px;
+    }
+    .follow-card p { font-size: 14px; color: var(--ink-soft); margin: 0 0 18px; }
+    .follow-btn {
+      display: inline-block;
+      background: var(--accent); color: var(--accent-ink);
+      padding: 12px 28px; border-radius: var(--radius);
+      font-size: 14px; letter-spacing: 0.08em; text-decoration: none;
+    }
+    .follow-btn:hover { opacity: 0.85; }
+    .follow-id { display: block; font-size: 12px; color: var(--ink-soft); margin-top: 10px; letter-spacing: 0.05em; }
     .gallery-note { font-size: 13px; color: var(--ink-soft); margin-top: 16px; }
 
     /* ------------------------------------------------------------
@@ -826,6 +850,30 @@
             <p class="map-link">
               <a href="https://www.google.com/maps/search/?api=1&query=%E8%92%B2%E9%83%A1%E9%A7%85" target="_blank" rel="noopener">Googleマップで蒲郡駅を開く</a>
             </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- フォロー -->
+    <section class="section follow" id="follow" aria-labelledby="follow-title">
+      <div class="wrap">
+        <div class="sec-head fade">
+          <span class="sec-en">Follow</span>
+          <h2 class="sec-title" id="follow-title">最新情報はLINEとInstagramで</h2>
+        </div>
+        <div class="follow-grid">
+          <div class="follow-card fade">
+            <h3>LINE公式アカウント</h3>
+            <p>開催情報や出品商品のご案内、次回の開催のお知らせをお届けします。</p>
+            <a class="follow-btn" href="https://line.me/R/ti/p/@678lcsbc" target="_blank" rel="noopener">友だち追加</a>
+            <span class="follow-id">@678lcsbc</span>
+          </div>
+          <div class="follow-card fade">
+            <h3>Instagram</h3>
+            <p>出品商品の紹介や、会場の様子を発信しています。</p>
+            <a class="follow-btn" href="https://www.instagram.com/ensen01/" target="_blank" rel="noopener">フォローする</a>
+            <span class="follow-id">@ensen01</span>
           </div>
         </div>
       </div>
