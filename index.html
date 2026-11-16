@@ -412,9 +412,11 @@
     .follow-grid {
       display: grid; gap: 14px;
       grid-template-columns: 1fr;
-      max-width: 760px; margin: 0 auto;
+      max-width: 1080px; margin: 0 auto;
     }
     @media (min-width: 640px) { .follow-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (min-width: 640px) and (max-width: 1023px) { .follow-card.shop { grid-column: 1 / -1; } }
+    @media (min-width: 1024px) { .follow-grid { grid-template-columns: repeat(3, 1fr); } }
     .follow-card {
       background: var(--bg-soft);
       border: 1px solid var(--line); border-radius: var(--radius);
@@ -860,7 +862,7 @@
       <div class="wrap">
         <div class="sec-head fade">
           <span class="sec-en">Follow</span>
-          <h2 class="sec-title" id="follow-title">最新情報はLINEとInstagramで</h2>
+          <h2 class="sec-title" id="follow-title">最新情報とオンラインショップ</h2>
         </div>
         <div class="follow-grid">
           <div class="follow-card fade">
@@ -874,6 +876,12 @@
             <p>出品商品の紹介や、会場の様子を発信しています。</p>
             <a class="follow-btn" href="https://www.instagram.com/ensen01/" target="_blank" rel="noopener">フォローする</a>
             <span class="follow-id">@ensen01</span>
+          </div>
+          <div class="follow-card shop fade">
+            <h3>オンラインショップ</h3>
+            <p>伴装の商品は、オンラインショップでもご購入いただけます。</p>
+            <a class="follow-btn" href="https://5hhfsy-f7.myshopify.com/" target="_blank" rel="noopener">ショップを見る</a>
+            <span class="follow-id">5hhfsy-f7.myshopify.com</span>
           </div>
         </div>
       </div>
