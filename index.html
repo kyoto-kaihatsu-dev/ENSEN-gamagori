@@ -868,19 +868,19 @@
           <div class="follow-card fade">
             <h3>LINE公式アカウント</h3>
             <p>開催情報や出品商品のご案内、次回の開催のお知らせをお届けします。</p>
-            <a class="follow-btn" href="https://line.me/R/ti/p/@678lcsbc" target="_blank" rel="noopener">友だち追加</a>
+            <a class="follow-btn" href="https://line.me/R/ti/p/@678lcsbc" target="_blank" rel="noopener" data-track="line">友だち追加</a>
             <span class="follow-id">@678lcsbc</span>
           </div>
           <div class="follow-card fade">
             <h3>Instagram</h3>
             <p>出品商品の紹介や、会場の様子を発信しています。</p>
-            <a class="follow-btn" href="https://www.instagram.com/ensen01/" target="_blank" rel="noopener">フォローする</a>
+            <a class="follow-btn" href="https://www.instagram.com/ensen01/" target="_blank" rel="noopener" data-track="instagram">フォローする</a>
             <span class="follow-id">@ensen01</span>
           </div>
           <div class="follow-card shop fade">
             <h3>オンラインショップ</h3>
             <p>伴装の商品は、オンラインショップでもご購入いただけます。</p>
-            <a class="follow-btn" href="https://5hhfsy-f7.myshopify.com/" target="_blank" rel="noopener">ショップを見る</a>
+            <a class="follow-btn" href="https://5hhfsy-f7.myshopify.com/?utm_source=ensen-lp&amp;utm_medium=referral&amp;utm_campaign=ensen-vol1" target="_blank" rel="noopener" data-track="shop">ショップを見る</a>
             <span class="follow-id">5hhfsy-f7.myshopify.com</span>
           </div>
         </div>
@@ -962,6 +962,20 @@
       }, { rootMargin: '0px 0px -8% 0px', threshold: 0.1 });
       targets.forEach(function (el) { io.observe(el); });
     })();
+  </script>
+  <script>
+    // フォローセクションのボタンクリックをGA4に記録する
+    document.addEventListener('click', function (e) {
+      var a = e.target.closest('a[data-track]');
+      if (!a) return;
+      if (typeof gtag === 'function') {
+        gtag('event', 'follow_click', {
+          link_name: a.getAttribute('data-track'),
+          link_url: a.href,
+          transport_type: 'beacon'
+        });
+      }
+    });
   </script>
 </body>
 </html>
